@@ -118,9 +118,8 @@ add_action( 'widgets_init', 'snw_widgets_init' );
  */
 function snw_scripts() {
 	wp_enqueue_style( 'grid-style', get_template_directory_uri() . '/css/grid-12.css');
-	wp_enqueue_style( 'snw-style', get_stylesheet_uri() );
-
 	
+	wp_enqueue_style( 'snw-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'snw-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
