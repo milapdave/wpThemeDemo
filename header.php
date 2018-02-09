@@ -25,38 +25,44 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'snw' ); ?></a>
 
 	<header id="masthead" class="site-header">
-		<div class="container">
-			<div class="site-branding">
-				<?php
-				the_custom_logo();
-				if ( is_front_page() && is_home() ) : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php else : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-				endif;
-
-				$description = get_bloginfo( 'description', 'display' );
-				if ( $description || is_customize_preview() ) : ?>
-					<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-				<?php
-				endif; ?>
-			</div><!-- .site-branding -->
-		</div>
-		<nav id="site-navigation" class="main-navigation">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'snw' ); ?></button>
 				<?php
-					wp_nav_menu( array(
-						'theme_location' => 'menu-1',
-						'menu_id'        => 'primary-menu',
-					) );
+					the_custom_logo();
+					if ( is_front_page() && is_home() ) : ?>
+						<h1 class="site-title"><a class="navbar-brand"  href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<?php else : ?>
+						<h1 class="site-title"><a class="navbar-brand"  href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<?php
+					endif;
 				?>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <?php
+				   wp_nav_menu([
+				     'menu'            => 'primary-menu',
+				     'theme_location'  => 'primary',
+				     'container'       => 'div',
+				     'container_id'    => 'bs4navbar',
+				     'container_class' => 'collapse navbar-collapse',
+				     'menu_id'         => false,
+				     'menu_class'      => 'navbar-nav mr-auto',
+				     'depth'           => 2,
+				     'fallback_cb'     => 'bs4navwalker::fallback',
+				     'walker'          => new bs4navwalker()
+				   ]);
+				   ?>
+			    <?php //get_template_part('inc/navbar-search'); ?>
+			    
+			  </div>
 			</div>
-		</nav><!-- #site-navigation -->
+		</nav>
 	</header><!-- #masthead -->
 	<?php if ( get_header_image() ) : ?>
-
+		<div class="jumbotron">
 				<div class="header-image">
 					<div class="container">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
@@ -65,4 +71,6 @@
 					</div>
 				</div><!-- .header-image -->
 			<?php endif; // End header image check. ?>
+		</div>
 	<div id="content" class="site-content container">
+		<div class="row">

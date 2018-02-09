@@ -44,7 +44,9 @@ if ( ! function_exists( 'snw_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'snw' ),
+			'primary' => __( 'Primary Menu', 'snw' ),
+			'social'  => __( 'Social Links Menu', 'snw' ),
+			'footer-menu' => __( 'Footer Menu', 'snw' ),
 		) );
 
 		/*
@@ -117,11 +119,12 @@ add_action( 'widgets_init', 'snw_widgets_init' );
  * Enqueue scripts and styles.
  */
 function snw_scripts() {
-	wp_enqueue_style( 'grid-style', get_template_directory_uri() . '/css/grid-12.css');
+	wp_enqueue_style( 'grid-style', get_template_directory_uri() . '/css/bootstrap.css');
 	
 	wp_enqueue_style( 'snw-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'snw-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array(), '20151215', true );
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array(), '20151215', true );
 
 	wp_enqueue_script( 'snw-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
@@ -150,7 +153,10 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
-
+/**
+ * bootstrap_navwalker
+ */
+require_once('bs4navwalker.php');
 /**
  * Load Jetpack compatibility file.
  */
